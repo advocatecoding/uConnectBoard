@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors');
 const app = express();
-const port = 3000; // Wähle einen Port deiner Wahl
+const port = process.env.PORT  || 9001; // Wähle einen Port deiner Wahl
 const multer = require('multer');
 app.use(cors());
 
