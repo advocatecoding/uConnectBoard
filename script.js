@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Funktion zum Laden der Einträge
     function loadEntries() {
-        fetch('http://localhost:3000/entries')
+        fetch('https://u-connect-board-api.vercel.app/entries')
             .then(response => response.json())
             .then(entries => {
                 // Lösche vorhandene Einträge
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append('titel', title);
         formData.append('inhalt', content);
 
-        fetch('http://localhost:3000/entries', {
+        fetch('https://u-connect-board-api.vercel.app/entries', {
             method: 'POST',
             body: formData
         })
