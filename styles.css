@@ -56,6 +56,9 @@ h1 {
 
 .entry {
     width: calc(33.33% - 20px);
+    display: flex;
+    flex-direction: column;
+
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
@@ -80,4 +83,20 @@ h1 {
     color: #777;
     text-align: right;
     margin-bottom: 8px;
+}
+
+
+/* Stile für den Löschen-Button */
+.delete-button {
+    background-color: whitesmoke;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    border: none;
+    padding: 5px 10px;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #e6e6e6;
 }

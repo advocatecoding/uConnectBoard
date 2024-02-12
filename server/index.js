@@ -62,6 +62,46 @@ app.post('/entries', (req, res) => {
     });
 });
 
+// Endpunkt für GET-Anfrage eines bestimmten Eintrags anhand seiner ID
+app.get('/entries/:id', (req, res) => {
+    const entryId = req.params.id;
+    const sql = 'SELECT * FROM Eintraege WHERE id = ?';
+
+    db.query(sql, [entryId], (err, result) => {
+        if (err) {
+            console.error('Fehler beim Abrufen des Eintrags:', err);
+            res.status(500).send('Interner Serverfehler');
+        } else {
+            if (result.length > 0) {
+                res.json(result[0]); // Den gefundenen Eintrag zurückgeben
+            } else {
+                res.status(404).send(`Eintrag mit der ID ${entryId} wurde nicht gefunden`);
+            }
+        }
+    });
+});
+
+
+// Endpunkt für DELETE-Anfrage zum Löschen eines Eintrags anhand seiner ID
+app.delete('/entries/:id', (req, res) => {
+    const entryId = req.params.id;
+    const sql = 'DELETE FROM Eintraege WHERE id = ?';
+
+    db.query(sql, [entryId], (err, result) => {
+        if (err) {
+            console.error('Fehler beim Löschen des Eintrags:', err);
+            res.status(500).send('Interner Serverfehler');
+        } else {
+            if (result.affectedRows > 0) {
+                res.send(`Eintrag mit der ID ${entryId} erfolgreich gelöscht`);
+            } else {
+                res.status(404).send(`Eintrag mit der ID ${entryId} nicht gefunden`);
+            }
+        }
+    });
+});
+
+
 
 function deleteOldEntries() {
     const sql = 'DELETE FROM Eintraege WHERE zeitstempel <= NOW() - INTERVAL 7 DAY';

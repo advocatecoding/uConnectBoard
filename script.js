@@ -30,6 +30,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Zufällige Hintergrundfarbe generieren und zuweisen
                     entryElement.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 80%)`;
+
+                    // Füge den Löschen-Button hinzu
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerText = "Löschen";
+                    deleteButton.className = "delete-button"; // Füge die CSS-Klasse hinzu
+                    console.log(entry.id)
+                    deleteButton.addEventListener("click", function() {
+                        deleteEntry(entry.id);
+                    });
+                    entryElement.appendChild(deleteButton);
                 });
             })
             .catch(error => console.error('Fehler beim Laden der Einträge:', error));
@@ -72,4 +82,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Lade Einträge beim Laden der Seite
     loadEntries();
+
+    // Funktion zum Löschen eines Eintrags
+    function deleteEntry(entryId) {
+        fetch(`https://u-connect-board-api.vercel.app/entries/${entryId}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Netzwerkantwort war nicht OK');
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log(data); // Nachricht, dass der Eintrag erfolgreich gelöscht wurde
+            // Aktualisiere die Eintragsliste
+            loadEntries();
+        })
+        .catch(error => {
+            console.error('Fehler beim Löschen des Eintrags:', error);
+        });
+    }
 });
