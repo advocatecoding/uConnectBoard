@@ -20,9 +20,9 @@ app.use(upload.array());
 // Verbindung zur Datenbank herstellen
 const db = mysql.createConnection({
     host: 'sql11.freesqldatabase.com',
-    user: 'sql11665390',
-    password: 'CNvB639hEX',
-    database: 'sql11665390'
+    user: 'sql11683651',
+    password: 'XBimpeyPxB',
+    database: 'sql11683651'
 });
 
 db.connect((err) => {
